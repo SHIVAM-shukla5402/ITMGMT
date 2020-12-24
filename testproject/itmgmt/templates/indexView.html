@@ -1,0 +1,43 @@
+{% extends "interfaces/interface3.html" %}
+
+{% block content %}
+{% autoescape off %}
+<div id="baseDiv"></div>
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        doc = new UIDoc("#baseDiv");
+        doc.setStructure({
+            "id":"baseDiv",
+            "name":"Post Detail",
+            "mode":"form",
+            "isEditable":true,
+            "isSubmitable":false,
+            "fields":[
+                {"id":"CODE","type":"Div","name":"Code"},
+                {"id":"TITLE","type":"TextBox","name":"Title"},
+            ]
+        });
+        doc.value({{data}});
+        doc.update();
+    });
+    function submitData()
+    {
+        var data = JSON.stringify(doc.value());
+        ajaxJson("/update","csrfmiddlewaretoken="+csrf_token+"&data="+data,function(resp)
+        {
+            if(resp.type=="success")
+            {
+                alert(resp.message[0].text);
+            }
+            else
+            {
+                alert(resp.message[0].text);
+            }
+        })
+    }
+</script>
+<button onclick="submitData()">Submit</button>
+{% endautoescape %}
+
+{% endblock %}
