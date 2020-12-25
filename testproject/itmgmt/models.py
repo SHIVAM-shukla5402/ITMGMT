@@ -281,7 +281,7 @@ class Item(models.Model):
 
     def __str__(self):
         return self.name
-
+# Account Section Model
 
 class Asset(models.Model):
     name = models.CharField(max_length=500)
@@ -436,6 +436,9 @@ class Parent_account(models.Model):
     def __str__(self):
         return self.name
 
+
+# Account Section Ends
+
 class Discount_on(models.Model):
     name = models.CharField(max_length=200)
     timestamp_lastupdated = models.DateTimeField(auto_now=True)
@@ -452,6 +455,24 @@ class Discount_type(models.Model):
     docstatus = models.BooleanField(default=True)
     disable = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.name
+
+
+class Discount_apply_on(models.Model):
+    name = models.CharField(max_length=200)
+    timestamp_lastupdated = models.DateTimeField(auto_now=True)
+    docstatus = models.BooleanField(default=True)
+    disable = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name
+
+class Discount_value_type(models.Model):
+    name = models.CharField(max_length=200)
+    timestamp_lastupdated = models.DateTimeField(auto_now=True)
+    docstatus = models.BooleanField(default=True)
+    disable = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -460,10 +481,21 @@ class Item_discount(models.Model):
     discount_on = models.ForeignKey(Discount_on,on_delete=models.CASCADE,null=True,blank=True)
     name = models.CharField(max_length=200)
     discount_rate = models.CharField(max_length=200)
-    discount_type = models.ForeignKey(Discount_type,on_delete=models.CASCADE,null=True,blank=True)
-    price = models.CharField(max_length=200)
-    qty = models.CharField(max_length=200)
-    entry_date = models.DateTimeField(blank = True,null = True)
+    discount_type = models.ForeignKey(Discount_apply_on,on_delete=models.CASCADE,null=True,blank=True)
+    min_price = models.IntegerField(null=True)
+    max_price = models.IntegerField(null=True)
+    min_qty = models.IntegerField(null=True)
+    max_qty = models.IntegerField(null=True)
+    valid_discount_date = models.DateField(null=True)
+    valid_end_discount_date = models.DateField(null=True)
+    discount_value = models.IntegerField(null=True)
+    discount_value_type = models.ForeignKey(Discount_value_type,on_delete=models.CASCADE,null=True,blank=True)
+    is_salable =  models.BooleanField(default=True)
+    is_purchase = models.BooleanField(default=True)
+    company = models.ForeignKey(Company,on_delete=models.CASCADE,null=True,blank=True)
+    costcenter = models.ForeignKey(Costcenter,on_delete=models.CASCADE,null=True,blank=True)
+    warehouse = models.ForeignKey(Warehouse,on_delete=models.CASCADE,null=True,blank=True)
+    entry_date = models.DateTimeField(auto_now=True)
     timestamp_lastupdated = models.DateTimeField(auto_now=True)
     docstatus = models.BooleanField(default=True)
     disable = models.BooleanField(default=False)

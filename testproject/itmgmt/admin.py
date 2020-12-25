@@ -155,9 +155,19 @@ class Discount_type_Details(admin.ModelAdmin):
     list_display=['name','docstatus','disable']
 admin.site.register(Discount_type,Discount_type_Details)
 
+class Discount_apply_on_Details(admin.ModelAdmin):
+    model = Discount_apply_on
+    list_display=['name','docstatus','disable']
+admin.site.register(Discount_apply_on,Discount_apply_on_Details)
+
+class Discount_value_type_Details(admin.ModelAdmin):
+    model = Discount_value_type
+    list_display=['name','docstatus','disable']
+admin.site.register(Discount_value_type,Discount_value_type_Details)
+
 class Item_discount_Details(admin.ModelAdmin):
     model = Item_discount
-    list_display=['discount_on','name','discount_rate','discount_type','price','qty','entry_date','docstatus','disable']
+    list_display=['discount_on','name','discount_rate','discount_type','min_price','max_price','min_qty','max_qty','company','costcenter','warehouse']
 admin.site.register(Item_discount,Item_discount_Details)
 
 class Item_rate_type_Details(admin.ModelAdmin):
