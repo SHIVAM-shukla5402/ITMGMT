@@ -9,6 +9,7 @@ class Post_Admin(admin.ModelAdmin):
 
 admin.site.register(Post,Post_Admin)
 admin.site.register(Post_Type)
+admin.site.register(Docstatus)
 
 class User_Detail(admin.ModelAdmin):
     model=User

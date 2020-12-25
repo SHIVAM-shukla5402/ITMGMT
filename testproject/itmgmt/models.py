@@ -9,6 +9,13 @@ class Post_Type(models.Model):
     def __str__(self):
         return self.name
 
+class Docstatus(models.Model):
+    name = models.CharField(max_length=50)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name
+
 
 class Post(models.Model):
     type = models.ForeignKey(Post_Type,on_delete=models.CASCADE,null=True,blank=True)
@@ -93,7 +100,7 @@ class Warehouse(models.Model):
     name = models.CharField(max_length=200)
     company = models.ForeignKey(Company,on_delete=models.CASCADE,null=True,blank=True)
     costcenter = models.ForeignKey(Costcenter,on_delete=models.CASCADE,null=True,blank=True)
-    is_group = models.CharField(max_length=1)
+    is_group = models.BooleanField(default=True)
     address = models.CharField(max_length=200)
     city = models.CharField(max_length=200)
     district = models.CharField(max_length=200)
